@@ -54,6 +54,8 @@ struct ContentView: View {
             Form {
                 Section {
                     TextField("Length", value: $inputValue, format: .number).keyboardType(.decimalPad)
+                }header: {
+                    Text("Input Value")
                 }
                 Section {
                     Picker("Input Unit", selection: $inputUnit) {
@@ -67,6 +69,8 @@ struct ContentView: View {
                 }
                 Section {
                     Text("\(convertMetresToOutput.formatted())")
+                } header: {
+                    Text("Output Value")
                 }
                 Section {
                     Picker("Output Unit", selection: $outputUnit) {
@@ -75,6 +79,8 @@ struct ContentView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                } header: {
+                    Text("Output Unit")
                 }
             }
             .navigationTitle("Length Converter")
