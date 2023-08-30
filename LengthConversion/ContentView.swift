@@ -68,7 +68,8 @@ struct ContentView: View {
                     Text("Input Unit")
                 }
                 Section {
-                    Text("\(convertMetresToOutput.formatted())")
+//                    Text(convertMetresToOutput.formatted())
+                    Text(String(format: "%.2f",convertMetresToOutput))
                 } header: {
                     Text("Output Value")
                 }
