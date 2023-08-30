@@ -11,8 +11,43 @@ struct ContentView: View {
     @State private var inputValue = 0.0
     @State private var inputUnit = "m"
     @State private var outputUnit = "ft"
+    @State private var outputValue = 0.0
     
     let lengthUnits = ["m", "km", "ft", "yd", "mi"]
+    
+    var convertInputToMetres: Double {
+        switch inputUnit {
+        case "m":
+            return inputValue
+        case "km":
+            return inputValue * 1000
+        case "ft":
+            return inputValue * 0.3048
+        case "yd":
+            return inputValue * 0.9144
+        case "mi":
+            return inputValue * 1609.34
+        default:
+            return inputValue
+        }
+    }
+    
+    var convertMetresToOutput: Double {
+        switch outputUnit {
+        case "m":
+            return convertInputToMetres
+        case "km":
+            return convertInputToMetres / 1000
+        case "ft":
+            return convertInputToMetres / 0.3048
+        case "yd":
+            return convertInputToMetres / 0.9144
+        case "mi":
+            return convertInputToMetres / 1609.34
+        default:
+            return convertInputToMetres
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -22,6 +57,19 @@ struct ContentView: View {
                 }
                 Section {
                     Picker("Input Unit", selection: $inputUnit) {
+                        ForEach(lengthUnits, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                } header: {
+                    Text("Input Unit")
+                }
+                Section {
+                    Text("\(convertMetresToOutput.formatted())")
+                }
+                Section {
+                    Picker("Output Unit", selection: $outputUnit) {
                         ForEach(lengthUnits, id: \.self) {
                             Text($0)
                         }
