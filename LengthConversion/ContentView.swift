@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var inputUnit = "m"
     @State private var outputUnit = "ft"
     @State private var outputValue = 0.0
+    @FocusState private var amountIsFocused: Bool
     
     let lengthUnits = ["m", "km", "ft", "yd", "mi"]
     
@@ -53,7 +54,9 @@ struct ContentView: View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Length", value: $inputValue, format: .number).keyboardType(.decimalPad)
+                    TextField("Length", value: $inputValue, format: .number)
+                        .keyboardType(.decimalPad)
+                        .focused($amountIsFocused)
                 }header: {
                     Text("Input Value")
                 }
@@ -84,6 +87,14 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Length Converter")
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        amountIsFocused = false
+                    }
+                }
+            }
         }
     }
 }
